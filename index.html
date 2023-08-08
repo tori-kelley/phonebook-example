@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phone Number Lookup</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+  </style>
+</head>
+<body>
+  <h1>Phone Number Lookup</h1>
+  <p>Please enter the name of the person you want to lookup:</p>
+  <input id="nameInput" type="text" placeholder="Alice">
+  <button onclick="lookup()">Lookup</button>
+  <p id="result"></p>
+
+  <br>
+
+  <h3>Contacts</h3>
+  <button onclick="showContacts()">Show all contacts</button>
+  <p id="contacts"></p>
+
+  <br>
+
+  <h3>Register Number</h3>
+  <p>Please enter the name of the person you want to add:</p>
+  <input id="newNameInput" type="text" placeholder="Mary">
+  <p>Please enter the number of the person you want to add:</p>
+  <input id="newNumInput" type="text" placeholder="1234567890">
+  <button onclick="registerNum()">Add</button>
+
+  <script>
+    let phonebook = [
+      {"name": "Alice", "phoneNumber": "123-456-7890"},
+      {"name": "Bob", "phoneNumber": "234-567-8901"},
+      {"name": "Charlie", "phoneNumber": "345-678-9012"},
+      {"name": "David", "phoneNumber": "456-789-0123"},
+      {"name": "Eve", "phoneNumber": "567-890-1234"},
+      {"name": "Frank", "phoneNumber": "678-901-2345"},
+      {"name": "Grace", "phoneNumber": "789-012-3456"},
+      {"name": "Helen", "phoneNumber": "890-123-4567"},
+      {"name": "Igor", "phoneNumber": "901-234-5678"},
+      {"name": "John", "phoneNumber": "012-345-6789"}
+    ];
+
+
+    function lookup() {
+      let name = document.getElementById('nameInput').value;
+      let person = phonebook.find(p => p.name.toLowerCase() === name.toLowerCase());
+      let resultElement = document.getElementById('result');
+      if (person) {
+        resultElement.textContent = `${person.name}'s phone number is: ${person.phoneNumber}`;
+      } else {
+        resultElement.textContent = `No phone number found for ${name}.`;
+      }
+    }
+    function showContacts() {
+        let contactPar = document.getElementById("contacts");
+        for (let contact of phonebook) {
+            contactPar.textContent += `${contact.name}'s phone number is: ${contact.phoneNumber}`;
+            contactPar.textContent += "\n";
+        }
+    }
+    function registerNum() {
+        let newName = document.getElementById('newNameInput').value;
+        let newNumber = document.getElementById('newNumInput').value;
+        newNumber = newNumber.slice(0,3) +"-"+ newNumber.slice(3,6) + "-" + newNumber.slice(6);
+        phonebook.push({"name": `${newName}`, "phoneNumber": `${newNumber}`});
+    }
+  </script>
+</body>
+</html>
